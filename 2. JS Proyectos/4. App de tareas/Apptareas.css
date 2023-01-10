@@ -1,0 +1,142 @@
+*{  /*Normalizacion de la página para que todo se acomode. Esto se pone al principio porque el navegador trae por defecto un estilo, y el estilo afecta.*/ 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+:root {
+    --white: #fafafb;    /*tenemos una variable (--white) y un color asociado, sirve para poder usar en todo el proyecto las var por su nombre y en el caso en el que cambiemos masivamente los colores lo podemos hacer a través del root, y no independientemente.*/
+    --purple: #9a67ea;
+    --blue-light: #84d4c3;
+    --blue-light2: #30d6b2;
+    --blue-dark: #2a73c2;
+    --green: #2c7b98;
+    --white2: bisque;
+    --black: black;
+}
+
+body {
+    background: linear-gradient(to bottom,var(--purple),var(--blue-light));
+    height: 100vh; /* para hacer el degradado completo usamos height, vh es virtual hight (es un porcentaje para ocupar cierto tamaño de la pantalla)*/
+    font-family: 'Raleway', sans-serif; /* la letra sale de google font y se linkea en el html, sans-serif se usa para que coja por defecto algune estilo en caso de que el primero no funcione*/
+}
+
+.container {   /*para que todo lo que hacemos no se quede en toda la pantalla, hacemos un divcontainter. */
+    max-width: 80%; /*separa de los bordes los elementos, cuando ponemos más pequeña la pantalla*/
+    width: 400px;
+    height: 500px;
+    margin:0 auto; /*para centrar los elementos*/
+}
+
+/*Perfil*/
+
+.perfil h1{
+    color: var(--white);
+}
+
+.perfil span {
+    color: var(--white);
+    letter-spacing: 0,5px;
+}
+
+#fecha {
+    color: var(--white);
+    padding: 40px 0 5px 0; /* para que no quede la fecha tan arriba, poner de 50px arriba*/
+
+}
+
+/*Agregar tarea*/
+
+
+.agregar-tarea {
+    background-color: var(--white);
+    border-radius: 15px; /*borde del recuadro blanco*/
+    height: 70px; /*cambia el largo del recuadro*/
+    display: flex;  /* elementos dentro del recuadro se acomodan, para alinear la tabla de agregar una tarea con el fondo*/  
+    align-items: center; /* para centrar el elemento dentro del recuadro, y que no ocupe el mismo espacio*/
+    padding: 20px; /* ajustar el recuadro con el tamaño*/
+    gap: 20px; /*para separar el recuadro de agregar una tarea, del icono más*/
+    margin: 30px 0;
+}
+
+.agregar-tarea input { /*donde la persona escribe*/
+    width: 100%; /* para que ocupe todo el ancho del ecuadro*/
+    height: 100%; /*para que ocupe todo el largo del recuadro*/
+    border-radius: 8px;
+    border: none; /*para quitar el borde negro que se formaba*/
+    background-color: var(--white);
+    
+
+}
+
+.agregar-tarea i { /*icono*/
+    font-size: 50px; /*tamaño del icono, no funciona width en iconos*/
+    color: var(--purple); 
+    cursor: pointer;  /*cuando le damos click se pone el cursor diferente*/
+}
+
+.agregar-tarea :hover {   /*para modificar el icono y hacerlo más grande cuando el usuario toque el icono*/
+    transform: scale(1,1); /*el boton tiene inicialmente una escala de 1, cuando ponemos el hover el icono se hace grande en escala 1,1 cuando el usuario lo toca*/
+
+}
+
+.agregar-tarea input::placeholder {
+    font-size: 1.1rem;
+    color: var(--purple);
+}
+
+/* Sección tarea*/
+
+.seccion-tarea h3 {
+    color: var(--white);
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.seccion-tarea li {
+    display: flex;  /* se acomodan los iconos de basura y circulo, con el texto de hacer tarea*/
+    background: linear-gradient(to bottom, var(--blue-light), var(--blue-light2));
+    border-radius: 15px;
+    padding: 10px; /*para que sea mas ancho/largo el cuadro*/
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0; /* separa elementos un recuadro del otro*/
+    color: var(--white);
+}
+
+.seccion-tarea i {
+    font-size: 25px;
+}
+
+.seccion-tarea i:hover {  /*para modificar el cursor y el color cuando el usuario da click en la basura y en el chulo*/
+    color: var(--purple);
+    cursor: pointer;
+}
+
+
+/*p esta dentro de ul, y ul esta dentro de seccion tarea*/
+.seccion-tarea > ul p {  /*cuanod tengo seccion tarea esta llamando a un elemento que tiene una clase seccion tarea, dentro de la sesion tarea hay un "p" que es un paragraf, pero como antes de esa p hay otro elemento que es ul y otro elemento que es li,  el programa no detecta esa jerarquia que tiene de padre e hijo, por eso debemos indicarle que p esta dentro de li, que esta dentro de ul que esta dentro de seccion tarea.*/
+    font-size: 1.2res;  /*resolucion de los iconos ajustado al cuadro*/
+
+}
+
+.line-through {
+    text-decoration: line-through;
+    color: var(--white);
+}
+
+
+/*
+Apuntes:
+
+1. :root nos sirve para crear todas las variables que vamos a tener.
+2. body servirá para tener: fondo degradado.
+3. La propiedad bottom especifica parte de la posición de un elemento (posicionado - es decir, con una posición determinada por código).
+4. .perfil: punto . para cuando son clases 
+5. #fecha: numeral # para cuando son identificaciones
+
+
+
+
+*/

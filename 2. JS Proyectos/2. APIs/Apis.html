@@ -1,0 +1,50 @@
+<!-- Para optimizar procesos con el CSS coge un framework en Pico.css (https://picocss.com/)
+Para usarlo copia la siguiente linea y tenemos modo oscuro: -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Est es mi App</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link href="file:///C:/Users/Teo/OneDrive/Escritorio/JS%20B%C3%A1sico/2.%20JS%20Proyectos/2.%20APIs/Apis.html" rel="stylesheet">
+</head>
+<body>
+    <h1>Esta es mi App</h1>
+    <main class="container">
+        <form id="form">  <!-- escuchar el elemento de submit en el formulario-->
+            <label>
+            IP del usuario
+            <input required id="input" type="text" placeholder="Introduce aquí la IP"> <!-- poner que es requerido-->
+            <small>Por ejemplo: 54.85.132.205</small>
+            </label>  <!-- El label envuelve al input, de esta forma será más accesible, y podemos poner una etiqueta al input-->
+            
+            <button type="submit" id ="submit">  <!-- el ultimo boton de un formulario siempre se comporta como submit, pero si no queremos que sea asi, en el type le ponemos button-->
+                Buscar información de esta IP
+            </button>
+        </form>
+
+        <div> 
+            <pre id="results"> <!-- los resultados los pondremos afuera del formulario. como el resultado de la API va a ser JSON vamos a formatearlo-->
+
+            </pre>
+        </div>
+    </main>
+
+</body>
+</html>
+
+
+
+<!-- MAIN: El elemento HTML <main> representa el contenido principal del <body> de un documento o aplicación. El área principal del contenido consiste en el contenido que está directamente relacionado, o se expande sobre el tema central de un documento o la funcionalidad central de una aplicación.-->
+<!-- CLASS: El atributo class identifica el elemento table ( span , en el caso del código scalar) como una de una clase de elementos en el modelo de objeto de documento HTML-->
+<!-- INPUT: El elemento HTML <input> se usa para crear controles interactivos para formularios basados en la web con el fin de recibir datos del usuario.-->
+<!-- TYPE:TYPE determina el tipo de entrada que se va a utilizar y sus valores pueden ser uno de los siguientes: text, muestra una caja donde introducir texto. Es el tipo por defecto de INPUT.-->
+<!-- FORM: El elemento HTML form ( <form> ) representa una sección de un documento que contiene controles interactivos que permiten a un usuario enviar información a un servidor web. Es posible usar las pseudo-clasess de CSS :valid e :invalid para darle estilos a un elemento form.-->
+<!-- PLACEHOLDER: El pseudo-elemento CSS ::placeholder representa el texto provisional (en-US) en un elemento <input> o un elemento <textarea>-->
+<!-- LABEL: El Elemento HTML <label> representa una etiqueta para un elemento en una interfaz de usuario. Este puede estar asociado con un control ya sea mediante la utilizacion del atributo for, o ubicando el control dentro del elemento label. que se utilizan para mostrar texto como el contenido de variables, campos o mensajes en pantalla,-->
+<!-- SMALL: El elemento HTML <small> hace el tamaño del texto una talla más pequeña (por ejemplo, de largo a mediano, o de pequeño a extra pequeño) que el tamaño mínimo de fuente del navegador.-->
+<!-- PRE: El Elemento HTML <pre> (o Texto HTML Preformateado) representa texto preformateado. El texto en este elemento típicamente se muestra en una fuente fija, no proporcional, exactamente como es mostrado en el archivo. Los espacios dentro de este elemento también son mostrados como están escritos-->
+<!-- REQUIRED: El atributo required , utilizado en el campo de un formulario, indica que dicho campo es obligatorio para que el formulario sea enviado por el cliente. En el caso de los elementos select ( <select> ) el usuario tendrá que seleccionar una opción que tenga un valor asociado -->

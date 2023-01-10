@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinosaurio Chrome</title>
+
+    <style>
+* {
+    padding:0;
+    margin:0;
+} 
+
+body{
+    height: 100vh;
+    background: #584040;
+    display: flex;
+    align-items: center;
+}
+
+.contenedor {
+    width: 920px;
+    height: 280px;
+    margin: 0 auto;
+
+    position: relative;
+
+    background: linear-gradient(#B7D6C7, #ffe4d4);   
+    transition: background-color 1s linear; 
+    overflow: hidden; 
+}
+
+.dino{
+    width: 84px;
+    height: 84px;
+
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+
+    background: url(dino.png) repeat-x 0px 0px;     
+    background-size: 336px 84px;
+    background-position-x: 0px;
+}
+
+.dino-corriendo{
+    animation: animarDino 0.25s steps(2) infinite;
+}
+
+.dino-estrellado{
+    background-position-x: -252px;
+}
+
+.suelo{
+    width: 200%;
+    height: 42px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background: url(suelo.png) repeat-x 0px 0px;
+    background-size: 50% 42px;
+}
+
+.score{
+
+    width: 100px;
+    height: 30px;
+
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 10;
+
+    color: #D48872;
+    font-family: Verdana;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+}
+
+@keyframes animarDino{
+    from{
+        background-position-x: -84px;
+    }
+    to{
+        background-position-x: -252px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <div class="suelo"></div>
+
+        <div class="dino dino-corriendo"></div>
+        
+        <div class="score">0</div>
+
+    </div>
+
+<script>
+
+var time = new Date();
+var deltaTime = 0;
+
+if(document.readyState === "complete" || document.readyState === "interactive"){
+    setTimeout(Init,1);
+}else{
+    document.addEvenListener("DOMContentLoaded", Init);
+}
+
+function Init() {
+    time = new Date();
+    Start();
+    Loop();
+}
+
+function Loop() {
+    deltaTime = (new Date() - time) / 1000;
+    time = new Date();
+    Update();
+    requestAnimationFrame(Loop);
+
+} 
+
+//** GAME LOGIC **//
+
+// Guardar en variables los objetos que vamos a crear y propiedades que va a tener el juego, como la posicion del suelo o la velocidad con la que se mueven los cactus, fuera de las funciones creamos una variable por cada objeto que vayamos a usar, de este modo seran accesibles desde cualquier parte de nuestro codigo
+var sueloY = 22;
+var velY = 0;
+var impulso = 900;
+var gravedad = 2500;
+
+var dinoPosX = 42;
+var dinoPosY = sueloY;
+
+var sueloX = 0;
+var velEscenario = 1280/3;
+var gameVel = 1;
+var score = 0;
+
+var parado = false;
+var saltando = false;
+
+var contenedor;
+var dino;
+var textoScore;
+var suelo;
+var gameOver;
+
+
+function Start() {
+    gameOver = document.querySelector(".game-over");
+    suelo = document.querySelector(".suelo");
+    contenedor = document.querySelector(".contenedor");
+    textoScore = documet.querySelector(".score");
+    dino = document.querySelector(".dino");
+}
+
+function Update() {
+
+    MoverSuelo();
+
+}
+
+function MoverSuelo() {
+    sueloX += CalcularDesplazamiento(); // invocamos la funcion MoverSuelo, actualizamos la funcion suelo a la cantidad correspondiente al tiempo que ha pasado entre el fotograma anterior y el actual, esto es delta time. 
+    suelo.style.left = -(sueloX % contenedor.clientWidth) + "px"; // vamos a colocar el objeto suelo en esta posicion, ademas, dado que nuestro suelo solo mide 2 veces el escenario, usando el modulo % del ancho del escenario nos aseguramos que cada vez que la mitad del suelo haya salido dle escenario, su posicion vuelva al principio para dar la sensacion de que es infinito
+}
+
+function CalcularDesplazamiento() { // vamos a calcular el desplazamiento con deltatime, y lo vamos a traer en varios sitios por medio de esta funcion
+    return velEscenario * deltaTime * gameVel;
+}
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!-- APUNTES DEL SCRIP CSS-->
+<!-- .dino: background: url(dino.png) repeat-x 0px 0px; hacemos que el dinosaurio se pinte en el objeto usando la propiedad background-->
+<!-- 
+    
+1. Animamos el dino con lo siguiente, por pasos: esto permite que se desplace la imagen del fondo, para que se mueva entre lo dos fotogramas que muestran al dinosaurio corriendo 
+@keyframes animarDino{
+    from{  desde 
+        background-position-x: -84px;
+    }
+    to{   hacia 
+        background-position-x: -525px;
+    }
+}
+
+2. Animamos al dino por steps: para que alterne entre las 2 imagenes sin mostrar puntos intermedios
+.dino-corriendo{
+    animation: animarDino 0.25s steps(2) infinite;
+}
+
+3. Para previsualizar la animación, añadimos al dinosaurio la clase dino-corriendo, ademas del estilo de abajo: 
+
+.dino-estrellado{
+    background-position-x: -252px;
+}
+
+<div class="dino dino-corriendo"></div>
+
+4. Para dar sensación de movimiento al dino, en todo motor de videjuegos necesitamos desplazar los objetos un poquito por cada fotograma. 
+Para esto, vamos a crear la función update: las funciones son bloques de codigo que realizan una tarea especifica, en la funcion update vamos a mover el escenario un poquito para que en los obstaculos, avance solo el dinosaurio:
+hace que parezca que el dinosaurio está corriendo, cuando en realidad es el fondo el que se mueve 
+
+Para que la función update se llame de forma recursiva usamos las siguientes líneas de codigo para iniciar el bucle del juego:
+
+
+
+
+
+
+
+-->
+
+<!--DEFINICIONES:-->
+<!-- Padding: El área de padding es el espacio entre el contenido del elemento y su borde ( border ). No se permiten valores negativos. La propiedad padding es un atajo para evitar la asignación de cada lado por separado ( padding-top , padding-right , padding-bottom , padding-left ).
+Position: La propiedad position de CSS especifica cómo un elemento es posicionado en el documento. Las propiedades top , right , bottom , y left determinan la ubicación final de los elementos posicionados.
+position absolute: Las capas o elementos con posicionamiento absoluto quedan aparte del flujo normal del HTML, quiere decir esto que no se afectan por el lugar donde aparezcan en el código HTML y tampoco afectan ellas a otros elementos que sí que formen parte del flujo normal del HTML
+Bottom: Para los elementos con una posición absoluta (aquellos que tienen la propiedad position: absolute o position: fixed ), la propiedad bottom determina la distancia entre el borde inferior del elemento y el borde inferior de su bloque contenedor.
+index: La propiedad CSS z-index indica el orden de un elemento posicionado y sus descendientes. Cuando varios elementos se superponen, los elementos con mayor valor z-index cubren aquellos con menor valor.
+Repeat: El valor repeat coincide con el comportamiento por defecto del navegador y repite la imagen en todas las direcciones. Cuando la imagen no se repite, por defecto se muestra en la esquina superior izquierda del elemento.
+background-size: La propiedad CSS background-size especifica el tamaño de las imágenes de fondo.
+background-position: define la posición inicial de la imagen de fondo especificada. valor calculada : para <length> el valor absoluto, para otros un porcentaje.
+@keyframes: La regla arroba @keyframes permite a los autores controlar los pasos intermedios en una secuencia de animación CSS mediante el establecimiento de keyframes (o puntos de trayectoria) a lo largo de la secuencia de animación que debe ser alcanzado por determinados puntos durante la animación.
+animar: Este aplicación para animar te permite emular entornos de escritorio, tableta y otros dispositivos móviles, de modo que mientras creas tu animación puedes verificar cómo se ve en diferentes tamaños de pantalla.
+font-family: La propiedad font-family define una lista de fuentes o familias de fuentes, con un orden de prioridad, para utilizar en un elemento seleccionado. A diferencia de la mayoría de las propiedades CSS, los valores se separan con comas (",") para indicar que son valores alternativos.
+time: El elemento HTML <time> representa un periodo específico en el tiempo. Puede incluir el atributo datetime para convertir las fechas en un formato interno legible por un ordenador, permitiendo mejores resultados en los motores de búsqueda o características personalizadas como recordatorios.
+newdate: cuando ejecutas new Date() en tu terminal, utiliza la zona horaria de tu navegador y muestra la fecha como una cadena de texto completa
+deltaTime: El tiempo en segundos que tardó en completarse el último frame
+readyState: de un document describe el estado de carga del documento.
+Init: Init es el padre de todos los procesos. Su papel primario es crear procesos a partir de un guión guardado en el fichero /etc/inittab (véase inittab(5)). Este fichero normalmente tiene entradas que harán que se levante gettys en cada línea en que los usuarios puedan conectarse.
+DOMContentLoaded: El evento DOMContentLoaded es una palabra reservada que nos permite conocer el momento en el que todos los elementos del DOM, es decir, los elementos HTML de un proyecto, están cargados.
+Start: El atributo start nos permite indicar el número por el cual queremos que empiece la lista, ya que por defecto las listas ordenadas en HTML empiezan por el número 1.
+Loop: su funcionalidad es la de permitir la reproducción continua de vídeo y audio sin pausas ni interrupciones.
+querySelector: querySelector() Devuelve el primer elemento del documento (utilizando un recorrido primero en profundidad pre ordenado de los nodos del documento) que coincida con el grupo especificado de selectores.
+deltaTime: invocamos la funcion MoverSuelo, actualizamos la funcion suelo a la cantidad correspondiente al tiempo que ha pasado entre el fotograma anterior y el actual, esto es delta time. 
+
+
+-->

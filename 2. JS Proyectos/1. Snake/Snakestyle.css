@@ -1,0 +1,55 @@
+* {
+    font-family: 'Share Tech Mono', monospace; /* para cambiar la letra de score, start y game over */
+}
+
+#board, .boardInfo {  /* board y board info estan en el HTML*/
+    max-width: 500px; /*ancho maximo a la informacion y al tablero para que no se vaya más alla del limite de pixeles*/
+}
+
+#board {
+    display: grid; /* La propiedad CSS display especifica si un elemento es tratado como block or inline element y el diseño usado por sus hijos. Grid (hijo), se destaca por permitir dividir una página en áreas o regiones principales, por definir la relación en términos de tamaño, posición y capas entre partes de un control construido a partir de primitivas HTML*/
+    grid-template-columns: repeat(10, 1fr); /* que repita 10 elementos de un valor de 1 a cada una de esas columnas*/
+}
+
+#start, .boardInfo {
+    font-size: 25px; /*font-size especifica la dimensión de la letra*/
+}
+
+#gameOver {
+    display: none; /*display none porque no se termina el juego, darle true cuando se termine el juego*/
+}
+
+.boardInfo {
+    display: flex; /*flex: indica la capacidad de un elemento flexible para alterar sus dimensiones y llenar el espacio disponible.*/
+    justify-content: space-between; /* justify-content define cómo el navegador distribuye el espacio entre y alrededor de los items flex, a lo largo del eje principal de su contenedor. Space between: los elementos aparecen distribuidos uniformemente: al principio, en el centro y al final del contenedor flex*/
+    margin-top: 10px; /*margen arriba*/
+}
+
+#start { /*estilizar boton*/
+    background-color:coral;
+    border: none;
+    color: black;
+}
+
+#scoreBoard {
+    display: inline-flex; /*para que el resultado se muestre al lado del score. muestra un elemento como un contenedor flexible de nivel en línea.*/
+}
+
+.square {   /*los veo cuando se haga el JS*/
+    aspect-ratio: 1; /*ratio de los espacios, 1 es para que sean cuadrados*/
+}
+
+.emptySquare {   /*cuadrados vacios, donde no hay nada*/
+    background-color:lightskyblue;
+}
+
+.snakeSquare {  /*cuadrado de la serpiente*/
+    background-color: black;
+    border: 1px solid gainsboro;
+}
+
+.foodSquare {   /* comida de la serpiente*/
+    background-color:mediumvioletred;
+    border: 1px solid magenta;
+}
+
